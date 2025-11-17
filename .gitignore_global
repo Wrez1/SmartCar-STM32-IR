@@ -1,0 +1,25 @@
+# Keil uVision 5
+*.uvguix.*
+*.uvopt.*
+*.uvproj.*
+*.uvgui.*
+*.uvoptx
+*.uvprojx
+
+# Folders
+Objects/
+Listings/
+RTE/
+
+# Misc
+*.bak
+*.tmp
+*.log
+*.plg
+*.d
+*.o
+*.map
+*.axf
+*.sct
+*.hex
+*.bin
