@@ -17,4 +17,6 @@ extern int Speed_Out_L,Speed_Out_R,Place_Out;
 extern int sensor_err,final_err;
 extern int Basic_Speed;
 extern uint8_t Place_Enable,PWM_Enable;
+
+extern uint8_t Start_Flag; // 0 = Í£Ö¹, 1 = Æô¶¯
 #endif

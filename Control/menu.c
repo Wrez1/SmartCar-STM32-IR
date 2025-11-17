@@ -1,4 +1,5 @@
 #include "myfile.h"
+#include "pid.h"
 
 /************************菜单***************************/
 uint8_t Key_Num=0;
@@ -34,16 +35,20 @@ void menu_operation()
 		func_index = table[func_index].Up;
 		OLED_Clear();        		
 	}
-	if(Key_Num==2)  //右
+	
+	// === 修改 Key_Num==2 的逻辑 ===
+	if(Key_Num==2)  //右 (我们定义这个键为 "启动/停止")
 	{   
-		func_index = table[func_index].Down;
-		OLED_Clear();        		
+		Start_Flag = !Start_Flag; // 翻转启动标志 (0 变 1, 1 变 0)
+		
+		// 我们不再让它翻页了，这个键现在是专用的 "启动" 键
+		// func_index = table[func_index].Down; 
+		// OLED_Clear();
 	}
-    current_operation_index=table[func_index].current_operation;//执行当前索引号所对应的功能函数。
-    (*current_operation_index)();//执行当前操作函数		
+	
+    current_operation_index=table[func_index].current_operation;
+    (*current_operation_index)();		
 }
-
-
 /************************显示部分***************************/
 //开机动画可以自己设置
 void Boot_animation()
@@ -54,7 +59,17 @@ void Boot_animation()
 //第一页
 void Homepage_1()	
 {
-		OLED_Printf(0,1,OLED_8X16,"	Speed_L:%+05d",Speed_L);
+		// === 在第一行添加启动状态显示 ===
+		if (Start_Flag)
+		{
+			OLED_Printf(0,1,OLED_8X16,"  == RUNNING == ");
+		}
+		else
+		{
+			OLED_Printf(0,1,OLED_8X16,"  -- STOPPED -- ");
+		}
+		// === 添加结束 ===
+		
 		OLED_Printf(0,17,OLED_8X16,"Speed_R:%+05d",Speed_R);
 		OLED_Printf(0,34,OLED_8X16,"PWM_L:%+02d",Speed_Out_L);
 		OLED_Printf(0,51,OLED_8X16,"PWM_R:%+02d",Speed_Out_R);

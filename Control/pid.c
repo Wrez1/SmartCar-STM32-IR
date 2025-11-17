@@ -2,9 +2,10 @@
 /************************全局变量***************************/
 uint8_t Place_Enable,PWM_Enable=1;//（转向环和速度环的使能开关）
 int Speed_Out_L,Speed_Out_R,Place_Out=0;//两个环的输出
-int sensor_err,final_err=0;
+int sensor_err=0;
 float straight_err;
 
+uint8_t Start_Flag = 0; // 默认 = 0 (停止)
 /************************PID调节区***************************/
 int Basic_Speed=0;    //基础速度，在这里修改速度，但是元素要先注释掉
 float Turn_factor=0.5;
@@ -14,6 +15,13 @@ float Place_PD[2] = {5.3,4.3};
 
 void Control()
 {
+	if (Start_Flag == 0)
+	{
+		// 如果未启动，强制停止所有电机
+		Motor_SetPWM_L(0);
+		Motor_SetPWM_R(0);
+		return; // 立即退出，不执行任何 PID 计算
+	}
 			// 获取传感器加权误差（原有算法）
 			sensor_err = Error_Calcaulate(); 
 
