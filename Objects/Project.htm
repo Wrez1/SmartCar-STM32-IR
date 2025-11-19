@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Mon Nov 17 20:23:01 2025
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Wed Nov 19 13:47:15 2025
 <BR><P>
 <H3>Maximum Stack Usage =        472 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -947,7 +947,8 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
 <P><STRONG><a name="[b1]"></a>Clear_Location</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, encoder.o(i.Clear_Location))
-<BR><BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Element_Stop
+<BR><BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Element_Ten
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Element_Stop
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Element_Ring
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Element_Noline
 </UL>
@@ -1037,10 +1038,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Element_Process
 </UL>
 
-<P><STRONG><a name="[b6]"></a>Element_Ten</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, element.o(i.Element_Ten))
+<P><STRONG><a name="[b6]"></a>Element_Ten</STRONG> (Thumb, 162 bytes, Stack size 8 bytes, element.o(i.Element_Ten))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Element_Ten
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;digital
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clear_Location
+<LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cfrcmple
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Element_Process
 </UL>
@@ -1140,8 +1143,8 @@ Global Symbols
 <P><STRONG><a name="[b]"></a>HardFault_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f10x_it.o(i.HardFault_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f10x_md.o(RESET)
 </UL>
-<P><STRONG><a name="[5]"></a>Homepage_1</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, menu.o(i.Homepage_1))
-<BR><BR>[Stack]<UL><LI>Max Depth = 456 + Unknown Stack Size
+<P><STRONG><a name="[5]"></a>Homepage_1</STRONG> (Thumb, 90 bytes, Stack size 16 bytes, menu.o(i.Homepage_1))
+<BR><BR>[Stack]<UL><LI>Max Depth = 464 + Unknown Stack Size
 <LI>Call Chain = Homepage_1 &rArr; OLED_Printf &rArr; OLED_ShowString &rArr; OLED_ShowChar &rArr; OLED_ShowImage &rArr; OLED_ClearArea
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Update
@@ -1799,7 +1802,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[10d]"></a>menu_operation</STRONG> (Thumb, 78 bytes, Stack size 8 bytes, menu.o(i.menu_operation))
+<P><STRONG><a name="[10d]"></a>menu_operation</STRONG> (Thumb, 112 bytes, Stack size 8 bytes, menu.o(i.menu_operation))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = menu_operation
 </UL>
 <BR>[Calls]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OLED_Clear
@@ -1994,7 +1997,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b2]"></a>__aeabi_cfrcmple</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, frleqf.o(x$fpl$frleqf))
-<BR><BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Element_Stop
+<BR><BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Element_Ten
+<LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Element_Stop
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Element_Ring
 <LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Element_Noline
 </UL>

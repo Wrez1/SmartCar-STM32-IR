@@ -10,8 +10,8 @@ int main(void)
 		Timer_Init();
 		Encoder_Init(); 
 		SENSOR_GPIO_Config(); //循迹引脚初始化
-		Motor_Init();					//电机初始化
-		PWM_Init();						//占空比定时器1初始化
+		Motor_Init();			//电机初始化
+		PWM_Init();				//占空比定时器1初始化
 	
 	while (1)
 	{		  

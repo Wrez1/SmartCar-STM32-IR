@@ -155,15 +155,51 @@ void Element_Stop()
 		}
 		
 }
-//十字识别，辅助判断圆环，我的圆环在十字之后，根据赛道情况自己调整
+
+// 1. 定义十字路口的状态
+// Ten_Flag = 0: 未检测到
+// Ten_Flag = 1: 检测到十字，正在"闭眼"直行
+// Ten_Flag = 2: 直行结束，冷却中(防止重复触发)
 void Element_Ten()
 {
- if(Element_Flag==0&&Ring_Flag==0&&Noline_Flag==4)
- {
-	if (L2 == 1 && L1 == 1 && M == 1 && R1 == 1 && R2 == 1)
-	{
-		Ten_Flag=1;
-	}
+    // 步骤 1: 检测十字 (前提: 正常循迹中，没在处理其他元素)
+    if(Element_Flag==0 && Ring_Flag==0 && Noline_Flag==4 && Ten_Flag==0)
+    {
+        // 逻辑修正: 检测"全黑" (所有传感器都是 0)
+        // 注意: 根据你的传感器实际情况，如果不灵敏，可以改成 "中间3个+两侧任意1个" 为黑
+        if (L2 == 0 && L1 == 0 && M == 0 && R1 == 0 && R2 == 0)
+        {
+            Ten_Flag = 1;           // 标记进入十字状态
+            Element_Flag = 1;       // 告诉主控现在有元素在处理
+            
+            Place_Enable = 0;       // 关键: 关闭转向环 (PID)!
+            Place_Out = 0;          // 关键: 舵机/差速回中，保持直行
+            
+            Clear_Location();       // 归零里程计，开始测量直行距离
+        }
+    }
 
- }
+    // 步骤 2: 闭眼直行 (利用编码器)
+    if(Ten_Flag == 1)
+    {
+        // 强制直行逻辑已在上方设置 (Place_Enable=0)，这里只需要等待
+        // 设定直行距离: 例如 15cm (根据你的赛道胶带宽度调整)
+        if (Location > 15.0f) 
+        {
+            Ten_Flag = 2;           // 切换到冷却状态
+            Element_Flag = 0;       // 释放元素占用标志
+            Place_Enable = 1;       // 恢复 PID 转向环，继续循迹
+            Clear_Location();       // 清理里程
+        }
+    }
+    
+    // 步骤 3: 冷却/防抖 (防止刚出十字又识别成十字)
+    if (Ten_Flag == 2)
+    {
+        // 跑过一段安全距离后，重置 Ten_Flag，准备检测下一个十字
+        if (Location > 20.0f) 
+        {
+            Ten_Flag = 0; 
+        }
+    }
 }
