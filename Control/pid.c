@@ -52,8 +52,7 @@ void Control()
   		{
 				Motor_SetPWM_L(Speed_Out_L);
 				Motor_SetPWM_R(Speed_Out_R);
-//			Motor_SetPWM_L(2000);
-//			Motor_SetPWM_R(2000);
+			
 			}
 			 
 }
@@ -84,9 +83,9 @@ int PID_Control(int NowPoint, int SetPoint, int *TURN_PID) //PI控制速度环
 	
     NowError = SetPoint - NowPoint;
     
-//    // 积分项累加（需限幅防饱和）
-//    Integral += NowError;
-//    Integral = Min_Max(Integral, -INTEGRAL_MAX, INTEGRAL_MAX); // 示例：INTEGRAL_MAX=1000
+    // 积分项累加（需限幅防饱和）
+    Integral += NowError;
+    Integral = Min_Max(Integral, -INTEGRAL_MAX, INTEGRAL_MAX); // 示例：INTEGRAL_MAX=1000
     
 		//这里pi、pd我都试过了pd效果更好一点
     Out = KP * NowError + KI * Integral+KD *(NowError-LastError);

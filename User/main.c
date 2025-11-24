@@ -4,20 +4,29 @@ volatile uint8_t data_ready = 0;
 /************************主函数***************************/
 int main(void)
 {
-		Serial_Init();
-		Key_Init();
-		OLED_Init();
-		Timer_Init();
-		Encoder_Init(); 
-		SENSOR_GPIO_Config(); //循迹引脚初始化
-		Motor_Init();			//电机初始化
-		PWM_Init();				//占空比定时器1初始化
+		// 1. 系统基础
+    Serial_Init();
+    Key_Init();
+    OLED_Init();
+    
+    // 2. 传感器 (输入)
+    SENSOR_GPIO_Config(); 
+    
+    // 3. 电机与动力 (输出)
+    // Motor_Init 内部已经调用了 PWM_Init，所以不用再单独调 PWM_Init
+    Motor_Init();         
+    
+    // 4. 编码器 (输入)
+    Encoder_Init(); 
+    
+    // 5. 最后开启定时中断 (控制核心)
+    Timer_Init();
 	
 	while (1)
 	{		  
 			Key_Num = Key_GetNum();  	    
 			menu_operation();																					//菜单调用函数
-			Serial_Printf("%d,%d,%f,%f\r\n", 1,Speed_R,Location); //串口输出（自己修改变量打印到电脑上来调节速度环）
+			Serial_Printf("%d,%d,%f\r\n", 1,Speed_R,Location); //串口输出（自己修改变量打印到电脑上来调节速度环）
 			OLED_Update();	
 	}
 }

@@ -9,46 +9,85 @@ uint8_t Ring_Flag=0;
 uint8_t Noline_Flag=0;
 uint8_t Stop_Flag = 0;
 uint8_t K=0;
-int Speed_Choice[3]={110,0,130};
 
+// [0]:弯道/基础速度, [1]:停车, [2]:直道冲刺速度
+// 建议: 80, 0, 120 (差值大一点效果才明显)
+int Speed_Choice[3]={50,0,80}; 
 
+// 直道判断计数器
+float Straight_Distance = 0; 
 
 /************************元素控制台***************************/
-//在这里启动或者关掉某个元素
-
 void Element_Process()
 {
-    Element_Normal();		//正常状态下，默认打开转向环和速度环
-		Element_Ring();			//圆环
-		Element_Noline();		//丢线处理
-		Element_Stop();			//停车
-		Element_Ten();			//十字识别（但未处理）
+    // 只有在没有处理特殊元素时，才进行直道/弯道速度切换
+    if(Element_Flag==0)
+    {
+        Element_Normal();   // 基础控制
+       // Element_Straight(); // 直道加速判断 (新加的)
+    }
+    
+    Element_Ring();     // 圆环
+    Element_Noline();   // 丢线处理
+    Element_Stop();     // 停车
+    Element_Ten();      // 十字识别
 }
 
-
+// 基础模式
 void Element_Normal()
 {
- if(Element_Flag==0)
- {
-	 Place_Enable=1;
-	 PWM_Enable=1;
-	 Basic_Speed=Speed_Choice[0];
- }
+    if(Element_Flag==0)
+    {
+        Place_Enable=1;
+        PWM_Enable=1;
+        // 默认给低速 (弯道安全速度)
+        // 如果满足直道条件，Element_Straight 会覆盖这个值
+        Basic_Speed=Speed_Choice[0]; 
+    }
 }
 
-//圆环
+// ★★★ 新增：直道加速逻辑 ★★★
+/*void Element_Straight()
+{
+    // 判断条件：中间灯亮(0)，两边灯灭(1)，且误差很小
+    // 这意味着车子正对直道
+    if( M==0 && L1==1 && R1==1 && (sensor_err > -2 && sensor_err < 2) )
+    {
+        // 累加直线行驶的里程 (Location 是累加的，我们需要一个差值，这里简化用累加计数)
+        // 更好的做法是在这里自增一个距离变量，利用 Encoder_Read 里的增量
+        // 这里为了简单，假设每次循环车走了一点点，累计次数
+        Straight_Distance += 0.5f; // 这是一个虚拟计数，根据实际调试调整
+    }
+    else
+    {
+        // 一旦遇到弯道（误差变大），立即清零计数，并降速
+        Straight_Distance = 0;
+    }
+
+    // 如果保持直行了一段距离 (比如计数超过 20)，认为进入长直道
+    if(Straight_Distance > 20)
+    {
+        // 切换到高速档
+        Basic_Speed = Speed_Choice[2]; 
+        
+        // 限制计数器防溢出
+        if(Straight_Distance > 100) Straight_Distance = 100;
+    }
+}
+*/
+
+// 圆环 (保持原样)
 void Element_Ring()
 {
-	if(Element_Flag==0&&Ring_Flag==0&&Noline_Flag==4&&Ten_Flag==1)	//调试状态下可以将&&Noline_Flag==4&&Ten_Flag==1移出，这里我是比赛为了防止误触，做了一个元素顺序限制
+    // ... (你原来的代码，未修改) ...
+    if(Element_Flag==0&&Ring_Flag==0&&Noline_Flag==4&&Ten_Flag==1)
 	{
-			//第一次检测入环
-			if(R2==1&&M==1&&(L1==0||R1==0)&&L2==0)//初次检测
+			if(R2==1&&M==1&&(L1==0||R1==0)&&L2==0)
 		{		
 				Ring_Flag=1;	
 				Clear_Location();			
 		}
 	}
-		//第一次检测到后过10cm再进行检测然后入环
 	if(Ring_Flag==1&&Location>=10.5)
 	{		
 		if((L1==0&&M==1&&R1==0)||((L1==1||R1==1)&&M==1))
@@ -56,20 +95,17 @@ void Element_Ring()
 			Ring_Flag=2;
 			Clear_Location();	
 			Element_Flag=1;	
-			Place_Enable=0;//关掉转向环
-			Place_Out=-15; //给一个固定的差速
+			Place_Enable=0;
+			Place_Out=-15; 
 		}
 		else{Ring_Flag=0;}
 	}
-		//结束入环动作，正常巡线
 	if(Ring_Flag==2&&Location>30)
 	{
 		Place_Enable=1;
 		Ring_Flag=3;
-		Basic_Speed=Speed_Choice[2];
-		
+		Basic_Speed=Speed_Choice[2]; // 入环后可以用高速
 	}
-	//出环动作和入环同理
 	if(Ring_Flag==3&&Location>380)
 	{
 		if(L2==1&&M==1&&R2==0)
@@ -80,126 +116,120 @@ void Element_Ring()
 			Ring_Flag=4;			
 		}
 	}
-	//出环结束
 	if(Ring_Flag==4&&Location>50)
 	{
 		Element_Flag=0;
 		K=1;
 		Ring_Flag=5;
 		Clear_Location();
-		
 	}
 }
 
-
-//丢线   
+// ★★★ 修复：丢线逻辑 (改为全白) ★★★
 void Element_Noline()
 {
-		if (Element_Flag == 0 &&Noline_Flag==0)
-		{
-			if (L2 == 0 && L1 == 0 && M == 0 && R1 == 0 && R2 == 0)  //丢线的原理就是所有灯熄灭
-	      { 	  
-					Noline_Flag = 1;
-					Clear_Location();					//当初次识别丢线之后开始计算路程
-	      }  								
+    if (Element_Flag == 0 && Noline_Flag == 0)
+    {
+        // 修正：丢线是跑到白地上，所以应该是全 1 (高电平)
+        if (L2 == 1 && L1 == 1 && M == 1 && R1 == 1 && R2 == 1) 
+        { 	  
+            Noline_Flag = 1;
+            Clear_Location(); 
+        }  								
     }
-	if(Noline_Flag==1)	
-	{
-			if(L2==0&&L1==0&&M==0&&R1==0&&R2==0)
-			{
-				if(Location>19)							//当累计路程大于19，正式进入丢线，否则算作误判，不进入丢线
-				{
-				Element_Flag=2;
-				Place_Enable=0;							
-				Place_Out= -100;						//首先大幅度转向到你想要的方向
-				Noline_Flag=2;	
-				Clear_Location();						//清零编码器，通过距离来判断转了多少，（用陀螺仪也可以）
-				}		
-			}
-			else
-				{
-					Clear_Location();	
-					Noline_Flag=0;
-				}	
-	}
-	if(Noline_Flag==2&&Location>25)		//转到想要的方向后，走直线加速冲过去
+    
+    if(Noline_Flag==1)	
+    {
+        // 修正：确认全白
+        if(L2==1 && L1==1 && M==1 && R1==1 && R2==1)
+        {
+            if(Location > 19)
+            {
+                Element_Flag=2;
+                Place_Enable=0;							
+                Place_Out= -100; // 大幅度转向找线
+                Noline_Flag=2;	
+                Clear_Location();
+            }		
+        }
+        else
+        {
+            Clear_Location();	
+            Noline_Flag=0;
+        }	
+    }
+    
+    // ... (后面的 Noline 逻辑保持不变) ...
+    if(Noline_Flag==2&&Location>25)
 	{
 		Noline_Flag=3;
 		PWM_Enable=0;
-		Motor_SetPWM_L(6000);						//设置固定的占空比
+		Motor_SetPWM_L(6000);
 		Motor_SetPWM_R(6000);  	
 	}	
-	if(Noline_Flag==3&&Location>=50&&(L2==1||L1==1||M==1||R1==1||R2==1))//识别到线之后，恢复正常寻线
-		{
-			
-			Noline_Flag=4;
-			Element_Flag=0;
-			Clear_Location();	
-		}
-}
-//停车  
-void Element_Stop()
-{
-		if (Element_Flag == 0&&Stop_Flag==0&&Ring_Flag==5) 					//我的停车是在最后一个元素圆环后，这样不会和断路误判
-		{
-			if (L2 == 1 && L1 == 1 && M == 1 && R1 == 1 && R2 == 1)		//仍然是全灭，这里可能和丢线重叠，需要做好标志位的限制
-	      { 
-					Stop_Flag = 1;  
-			  	Clear_Location();						
-         }
-		}
-		if (Stop_Flag == 1&&Location >=30) 
-		{
-			Place_Enable=0;
-			Basic_Speed=Speed_Choice[1];
-		}
-		
+	if(Noline_Flag==3&&Location>=50&&(L2==0||L1==0||M==0||R1==0||R2==0)) // 修正：这里识别到线应该是检测到 0
+	{
+		Noline_Flag=4;
+		Element_Flag=0;
+		Clear_Location();	
+	}
 }
 
-// 1. 定义十字路口的状态
-// Ten_Flag = 0: 未检测到
-// Ten_Flag = 1: 检测到十字，正在"闭眼"直行
-// Ten_Flag = 2: 直行结束，冷却中(防止重复触发)
+// 停车 (保持原样，注意不要和丢线搞混)
+void Element_Stop()
+{
+    // 只有在跑完圆环后才开启停车检测，防止误判
+    if (Element_Flag == 0 && Stop_Flag == 0 && Ring_Flag == 5) 
+    {
+        // 停车线如果是黑色横线，应该是全 0
+        // 停车区如果是白色，则是全 1
+        // 这里假设终点是全白区
+        if (L2 == 1 && L1 == 1 && M == 1 && R1 == 1 && R2 == 1)
+        { 
+            Stop_Flag = 1;  
+            Clear_Location();						
+        }
+    }
+    if (Stop_Flag == 1 && Location >= 30) 
+    {
+        Place_Enable=0;
+        Basic_Speed=Speed_Choice[1]; // 速度 0
+        PWM_Enable = 0; // 彻底关断 PWM
+        Motor_SetPWM_L(0);
+        Motor_SetPWM_R(0);
+    }
+}
+
+// 十字路口 (使用我之前给你的修正版)
 void Element_Ten()
 {
-    // 步骤 1: 检测十字 (前提: 正常循迹中，没在处理其他元素)
     if(Element_Flag==0 && Ring_Flag==0 && Noline_Flag==4 && Ten_Flag==0)
     {
-        // 逻辑修正: 检测"全黑" (所有传感器都是 0)
-        // 注意: 根据你的传感器实际情况，如果不灵敏，可以改成 "中间3个+两侧任意1个" 为黑
+        // 全黑检测 (0)
         if (L2 == 0 && L1 == 0 && M == 0 && R1 == 0 && R2 == 0)
         {
-            Ten_Flag = 1;           // 标记进入十字状态
-            Element_Flag = 1;       // 告诉主控现在有元素在处理
-            
-            Place_Enable = 0;       // 关键: 关闭转向环 (PID)!
-            Place_Out = 0;          // 关键: 舵机/差速回中，保持直行
-            
-            Clear_Location();       // 归零里程计，开始测量直行距离
+            Ten_Flag = 1;
+            Element_Flag = 1;
+            Place_Enable = 0;
+            Place_Out = 0;
+            Clear_Location();
         }
     }
 
-    // 步骤 2: 闭眼直行 (利用编码器)
     if(Ten_Flag == 1)
     {
-        // 强制直行逻辑已在上方设置 (Place_Enable=0)，这里只需要等待
-        // 设定直行距离: 例如 15cm (根据你的赛道胶带宽度调整)
+        // 闭眼直行 15cm
         if (Location > 15.0f) 
         {
-            Ten_Flag = 2;           // 切换到冷却状态
-            Element_Flag = 0;       // 释放元素占用标志
-            Place_Enable = 1;       // 恢复 PID 转向环，继续循迹
-            Clear_Location();       // 清理里程
+            Ten_Flag = 2;
+            Element_Flag = 0;
+            Place_Enable = 1;
+            Clear_Location();
         }
     }
     
-    // 步骤 3: 冷却/防抖 (防止刚出十字又识别成十字)
     if (Ten_Flag == 2)
     {
-        // 跑过一段安全距离后，重置 Ten_Flag，准备检测下一个十字
-        if (Location > 20.0f) 
-        {
-            Ten_Flag = 0; 
-        }
+        if (Location > 20.0f) Ten_Flag = 0; 
     }
 }
