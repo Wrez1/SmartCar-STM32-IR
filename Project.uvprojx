@@ -840,6 +840,16 @@
               <FileType>5</FileType>
               <FilePath>.\Control\element.h</FilePath>
             </File>
+            <File>
+              <FileName>store.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Control\store.c</FilePath>
+            </File>
+            <File>
+              <FileName>store.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Control\store.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

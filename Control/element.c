@@ -27,7 +27,7 @@ void Element_Process()
        // Element_Straight(); // 直道加速判断 (新加的)
     }
     
-    Element_Ring();     // 圆环
+    //Element_Ring();     // 圆环
     Element_Noline();   // 丢线处理
     Element_Stop();     // 停车
     Element_Ten();      // 十字识别
@@ -167,11 +167,19 @@ void Element_Noline()
 		Motor_SetPWM_L(6000);
 		Motor_SetPWM_R(6000);  	
 	}	
-	if(Noline_Flag==3&&Location>=50&&(L2==0||L1==0||M==0||R1==0||R2==0)) // 修正：这里识别到线应该是检测到 0
+	// === 修改为：自动复位 ===
+	if(Noline_Flag==3 && Location>=50 && (L2==0||L1==0||M==0||R1==0||R2==0))
 	{
-		Noline_Flag=4;
-		Element_Flag=0;
+		Noline_Flag = 4; // 先标记为4 (配合十字路口的检测条件)
+		Element_Flag = 0;
 		Clear_Location();	
+	}
+
+	// 新增：在 FN=4 之后，再跑一小段距离（比如 10cm），就彻底重置为 0
+	// 这样车子就有能力应对下一次丢线了
+	if (Noline_Flag == 4 && Location > 10.0f)
+	{
+		Noline_Flag = 0; // 复活！可以再次检测丢线了
 	}
 }
 
@@ -194,16 +202,16 @@ void Element_Stop()
     {
         Place_Enable=0;
         Basic_Speed=Speed_Choice[1]; // 速度 0
-        PWM_Enable = 0; // 彻底关断 PWM
-        Motor_SetPWM_L(0);
-        Motor_SetPWM_R(0);
+        //PWM_Enable = 0; // 彻底关断 PWM
+        //Motor_SetPWM_L(0);
+       // Motor_SetPWM_R(0);
     }
 }
 
 // 十字路口 (使用我之前给你的修正版)
 void Element_Ten()
 {
-    if(Element_Flag==0 && Ring_Flag==0 && Noline_Flag==4 && Ten_Flag==0)
+    if(Element_Flag==0 && Ring_Flag==0 && Ten_Flag==0)
     {
         // 全黑检测 (0)
         if (L2 == 0 && L1 == 0 && M == 0 && R1 == 0 && R2 == 0)

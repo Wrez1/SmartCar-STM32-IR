@@ -2,24 +2,31 @@
 uint8_t Serial_RxData;
 uint8_t Serial_RxFlag;
 /************************串口传输***************************/
+// Serial.c 中的 Serial_Init 函数
+
 void Serial_Init(void)
 {
-	 // 启用 GPIOB 时钟
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
-    
-    // 启用 USART3 时钟
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART3, ENABLE);    
 
     GPIO_InitTypeDef GPIO_InitStructure;
-    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP; // 复用推挽输出
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11 | GPIO_Pin_10; // PB10 和 PB11
+    
+    // ★★★ 修改这里：只初始化 TX (PB10)，去掉 PB11 ★★★
+    GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP; 
+    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10; // 只留 PB10 发送数据
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
     GPIO_Init(GPIOB, &GPIO_InitStructure);
+
+    // PB11 现在归 Key.c 管了，Serial.c 不要碰它
 
     USART_InitTypeDef USART_InitStructure;
     USART_InitStructure.USART_BaudRate = 9600;
     USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-    USART_InitStructure.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
+    
+    // ★★★ 修改这里：模式改为只发送 (Tx) ★★★
+    // 虽然留着 Rx 也没大碍，但为了严谨建议改成 USART_Mode_Tx
+    USART_InitStructure.USART_Mode = USART_Mode_Tx; 
+    
     USART_InitStructure.USART_Parity = USART_Parity_No;
     USART_InitStructure.USART_StopBits = USART_StopBits_1;
     USART_InitStructure.USART_WordLength = USART_WordLength_8b;

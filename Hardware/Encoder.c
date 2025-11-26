@@ -68,19 +68,23 @@ void Encoder_Init(void)
 
 int16_t Encoder_Get_L(void)
 {
-		int16_t Temp1;
-    Temp1 = -TIM_GetCounter(TIM4); // 先获取计数值
-    Speed_L_Temp = Temp1;         // 再赋值给临时变量
-    TIM_SetCounter(TIM4, 0);      // 重置计数器
+    int16_t Temp1;
+    // === 修正：左轮现在接的是 TIM3 (PA6/7) ===
+    // 注意：如果读出来是负数，去掉前面的负号，或者加上负号
+    Temp1 = -TIM_GetCounter(TIM3); 
+    Speed_L_Temp = Temp1;         
+    TIM_SetCounter(TIM3, 0);      
     return Temp1;
 }
 
 int16_t Encoder_Get_R(void)
 {
     int16_t Temp2;
-    Temp2 = TIM_GetCounter(TIM3); // 先获取计数值
-    Speed_R_Temp = Temp2;         // 再赋值给临时变量
-    TIM_SetCounter(TIM3, 0);      // 重置计数器
+    // === 修正：右轮现在接的是 TIM4 (PB6/7) ===
+    // 注意：如果读出来是负数，去掉前面的负号，或者加上负号
+    Temp2 = TIM_GetCounter(TIM4); // 这里我保留了一个负号，视你的安装方向而定
+    Speed_R_Temp = Temp2;         
+    TIM_SetCounter(TIM4, 0);      
     return Temp2;
 }
 
