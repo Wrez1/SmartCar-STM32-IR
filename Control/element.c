@@ -208,36 +208,66 @@ void Element_Stop()
     }
 }
 
-// 十字路口 (使用我之前给你的修正版)
 void Element_Ten()
 {
+    // 1. 触发逻辑：检测到全黑 (或者中间三个黑 L1=0, M=0, R1=0 也可以，看你传感器间距)
+    // 建议先用严苛的条件(全黑)，防止误判
     if(Element_Flag==0 && Ring_Flag==0 && Ten_Flag==0)
     {
-        // 全黑检测 (0)
+        // 5路全黑 (0) -> 确认为十字路口
         if (L2 == 0 && L1 == 0 && M == 0 && R1 == 0 && R2 == 0)
         {
-            Ten_Flag = 1;
-            Element_Flag = 1;
-            Place_Enable = 0;
-            Place_Out = 0;
-            Clear_Location();
+            Ten_Flag = 1;      // 进入十字处理状态
+            Element_Flag = 1;  // 锁定元素锁，防止进入其他元素判断
+            Place_Enable = 0;  // ★关掉转向PID (手握方向盘不动)
+            Place_Out = 0;     // ★强制舵机/差速归零 (走直线)
+            Clear_Location();  // 清零里程计，开始测量
         }
     }
 
+    // 2. 盲跑与动态退出逻辑
     if(Ten_Flag == 1)
     {
-        // 闭眼直行 15cm
-        if (Location > 15.0f) 
+        // 阶段 A: 强制盲跑一小段 (比如 4cm)
+        // 作用：利用惯性冲过十字路口的横线区域，防止PID被横线干扰
+        // 这个距离只要大于横线宽度即可 (电工胶布宽1.8cm，给4cm足够了)
+        if (Location <= 4.0f)
         {
-            Ten_Flag = 2;
-            Element_Flag = 0;
-            Place_Enable = 1;
-            Clear_Location();
+            // 此时什么都不做，坚持走直线 (Place_Enable 依然是 0)
+        }
+        
+        // 阶段 B: 动态判断退出 (超过4cm后开始检测)
+        else 
+        {
+            // === 核心修改：只要传感器恢复正常，立刻接管 ===
+            // 正常巡线特征：最两边是白(1)，中间是黑(0)
+            if (L2 == 1 && R2 == 1 && M == 0) 
+            {
+                // 恢复 PID
+                Ten_Flag = 2;     // 进入冷却
+                Element_Flag = 0; // 释放元素锁
+                Place_Enable = 1; // ★恢复 PID 控制
+                Clear_Location(); // 清零给冷却用
+            }
+            
+            // 阶段 C: 保底退出 (超时保护)
+            // 万一过了十字还没检测到线 (比如入弯歪了)，跑了 25cm 强制恢复 PID
+            // 让你有机会靠 PID 救回来，而不是一直撞墙
+            else if (Location > 25.0f) 
+            {
+                Ten_Flag = 2;
+                Element_Flag = 0;
+                Place_Enable = 1;
+                Clear_Location();
+            }
         }
     }
     
+    // 3. 冷却逻辑
     if (Ten_Flag == 2)
     {
-        if (Location > 20.0f) Ten_Flag = 0; 
+        // 走出十字后，再跑 10cm 才可以检测下一个十字
+        // 防止同一个十字重复触发
+        if (Location > 10.0f) Ten_Flag = 0; 
     }
 }

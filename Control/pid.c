@@ -10,12 +10,12 @@ uint8_t Start_Flag = 0;
 
 /************************PID调节区***************************/
 int Basic_Speed=0;    
-float Turn_factor=10; //转向系数
+float Turn_factor=2.5; //转向系数
 int Left_Speed, Right_Speed=0;
 
 // 5V 供电专用强力参数
-// Kp=600(有力), Ki=40(能跑稳), Kd=30(防抖)
-int Speed_PID[3] = {600, 0, 80}; 
+// Kp=600(有力), Ki=0(能跑稳), Kd=30(防抖)
+int Speed_PID[3] = {250, 0, 40}; 
 float Place_PD[2] = {8.0, 25.0}; // 转向参数
 
 // 软启动变量
@@ -58,16 +58,16 @@ void Control()
     else if (Speed_Out_L < 0) Speed_Out_L -= 2500;
     
     // 右轮：动力不足，增加到 3500 (甚至 4000，直到它能跟上左轮)
-    if (Speed_Out_R > 0) Speed_Out_R += 4000; // <-- 改这里
-    else if (Speed_Out_R < 0) Speed_Out_R -= 4000; // <-- 改这里
+    if (Speed_Out_R > 0) Speed_Out_R += 3500; // <-- 改这里
+    else if (Speed_Out_R < 0) Speed_Out_R -= 3500; // <-- 改这里
 
    
     // 输出限幅 (现在只限制正向最大值即可，因为负数已经被清零了)
-    int Target_L = Min_Max(Speed_Out_L, -7199, 7199); // 下限改为 0
-    int Target_R = Min_Max(Speed_Out_R, -7199, 7199); // 下限改为 0
+    int Target_L = Min_Max(Speed_Out_L, -6000, 6000); // 下限改为 0
+    int Target_R = Min_Max(Speed_Out_R, -6000, 6000); // 下限改为 0
     
     // === 6. 5V 供电核心补丁：软启动 (防止重启) ===
-    int Step = 80; // 步长，越小起步越稳，不容易拉崩电压
+    int Step =800; // 步长越小起步越稳，不容易拉崩电压
     
     // 左轮爬坡
     if (Current_PWM_L < Target_L) Current_PWM_L += Step;
@@ -76,6 +76,7 @@ void Control()
     // 右轮爬坡
     if (Current_PWM_R < Target_R) Current_PWM_R += Step;
     else if (Current_PWM_R > Target_R) Current_PWM_R -= Step;
+
 
     // 7. 最终输出 (关键修正：交叉映射)
     if(PWM_Enable)
@@ -149,9 +150,8 @@ void Different_Speed()
 { 
     float k;  
     
-    // 限幅 
-    if (Place_Out > 200) Place_Out = 200;
-    if (Place_Out < -200) Place_Out = -200;
+    //if (Place_Out > 1500) Place_Out = 1500; // 放大到 1500 或更多
+    //if (Place_Out < -1500) Place_Out = -1500;
 
     // === 逻辑互换修正 ===
     
