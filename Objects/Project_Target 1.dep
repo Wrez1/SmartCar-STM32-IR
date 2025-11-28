@@ -849,7 +849,7 @@ F (.\Hardware\OLED_Data.c)(0x6714E9C1)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=in
 I (Hardware\OLED_Data.h)(0x6714E987)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
 F (.\Hardware\OLED_Data.h)(0x6714E987)()
-F (.\Hardware\Motor.c)(0x69245DA9)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
+F (.\Hardware\Motor.c)(0x692844A0)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\motor.o --omf_browse .\objects\motor.crf --depend .\objects\motor.d)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -910,7 +910,7 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 F (.\Hardware\PWM.h)(0x680F9D5A)()
-F (.\Hardware\Encoder.c)(0x6926FCEC)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\encoder.o --omf_browse .\objects\encoder.crf --depend .\objects\encoder.d)
+F (.\Hardware\Encoder.c)(0x692844A0)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\encoder.o --omf_browse .\objects\encoder.crf --depend .\objects\encoder.d)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -972,7 +972,7 @@ I (.\Library\stm32f10x_usart.h)(0x4D783BB4)
 I (.\Library\stm32f10x_wwdg.h)(0x4D783BB4)
 I (.\Library\misc.h)(0x4D783BB4)
 F (.\Hardware\sensor.h)(0x681B5F6D)()
-F (.\Hardware\Key.c)(0x69274694)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\key.o --omf_browse .\objects\key.crf --depend .\objects\key.d)
+F (.\Hardware\Key.c)(0x692844A0)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\key.o --omf_browse .\objects\key.crf --depend .\objects\key.d)
 I (.\System\myfile.h)(0x691AF04E)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -1008,19 +1008,19 @@ I (.\Hardware\OLED_Data.h)(0x6714E987)
 I (.\Hardware\Motor.h)(0x6819F7E3)
 I (.\Hardware\PWM.h)(0x680F9D5A)
 I (.\System\Timer.h)(0x67BF2CFD)
-I (.\Control\pid.h)(0x691B13A4)
+I (.\Control\pid.h)(0x692844A0)
 I (.\Hardware\Encoder.h)(0x681CC5BA)
 I (.\Hardware\sensor.h)(0x681B5F6D)
 I (.\System\sys.h)(0x5F5C5474)
 I (.\Control\error.h)(0x68314ABA)
 I (.\Hardware\key.h)(0x681A316D)
-I (.\Control\menu.h)(0x69273858)
-I (.\Control\element.h)(0x6924736A)
+I (.\Control\menu.h)(0x692844A0)
+I (.\Control\element.h)(0x692844A0)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x588B8344)
 I (.\Hardware\Serial.h)(0x62D3EBED)
 F (.\Hardware\Key.h)(0x681A316D)()
-F (.\Hardware\Serial.c)(0x69272834)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\serial.o --omf_browse .\objects\serial.crf --depend .\objects\serial.d)
+F (.\Hardware\Serial.c)(0x692844A0)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\serial.o --omf_browse .\objects\serial.crf --depend .\objects\serial.d)
 I (.\System\myfile.h)(0x691AF04E)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -1056,19 +1056,19 @@ I (.\Hardware\OLED_Data.h)(0x6714E987)
 I (.\Hardware\Motor.h)(0x6819F7E3)
 I (.\Hardware\PWM.h)(0x680F9D5A)
 I (.\System\Timer.h)(0x67BF2CFD)
-I (.\Control\pid.h)(0x691B13A4)
+I (.\Control\pid.h)(0x692844A0)
 I (.\Hardware\Encoder.h)(0x681CC5BA)
 I (.\Hardware\sensor.h)(0x681B5F6D)
 I (.\System\sys.h)(0x5F5C5474)
 I (.\Control\error.h)(0x68314ABA)
 I (.\Hardware\key.h)(0x681A316D)
-I (.\Control\menu.h)(0x69273858)
-I (.\Control\element.h)(0x6924736A)
+I (.\Control\menu.h)(0x692844A0)
+I (.\Control\element.h)(0x692844A0)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x588B8344)
 I (.\Hardware\Serial.h)(0x62D3EBED)
 F (.\Hardware\Serial.h)(0x62D3EBED)()
-F (.\User\main.c)(0x69274221)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
+F (.\User\main.c)(0x692844A0)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
 I (.\System\myfile.h)(0x691AF04E)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -1104,18 +1104,18 @@ I (.\Hardware\OLED_Data.h)(0x6714E987)
 I (.\Hardware\Motor.h)(0x6819F7E3)
 I (.\Hardware\PWM.h)(0x680F9D5A)
 I (.\System\Timer.h)(0x67BF2CFD)
-I (.\Control\pid.h)(0x691B13A4)
+I (.\Control\pid.h)(0x692844A0)
 I (.\Hardware\Encoder.h)(0x681CC5BA)
 I (.\Hardware\sensor.h)(0x681B5F6D)
 I (.\System\sys.h)(0x5F5C5474)
 I (.\Control\error.h)(0x68314ABA)
 I (.\Hardware\key.h)(0x681A316D)
-I (.\Control\menu.h)(0x69273858)
-I (.\Control\element.h)(0x6924736A)
+I (.\Control\menu.h)(0x692844A0)
+I (.\Control\element.h)(0x692844A0)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x588B8344)
 I (.\Hardware\Serial.h)(0x62D3EBED)
-I (.\Control\store.h)(0x69273D02)
+I (.\Control\store.h)(0x692844A0)
 F (.\User\stm32f10x_conf.h)(0x4D99A59E)()
 F (.\User\stm32f10x_it.c)(0x4D99A59E)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\stm32f10x_it.o --omf_browse .\objects\stm32f10x_it.crf --depend .\objects\stm32f10x_it.d)
 I (User\stm32f10x_it.h)(0x4D99A59E)
@@ -1181,7 +1181,7 @@ I (.\System\Delay.h)(0x6130920D)
 I (.\Hardware\OLED.h)(0x6714E2A7)
 I (.\Hardware\OLED_Data.h)(0x6714E987)
 F (.\User\test.h)(0x67BDC9E3)()
-F (.\Control\error.c)(0x69281065)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\error.o --omf_browse .\objects\error.crf --depend .\objects\error.d)
+F (.\Control\error.c)(0x69290A03)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\error.o --omf_browse .\objects\error.crf --depend .\objects\error.d)
 I (.\System\myfile.h)(0x691AF04E)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -1217,19 +1217,19 @@ I (.\Hardware\OLED_Data.h)(0x6714E987)
 I (.\Hardware\Motor.h)(0x6819F7E3)
 I (.\Hardware\PWM.h)(0x680F9D5A)
 I (.\System\Timer.h)(0x67BF2CFD)
-I (.\Control\pid.h)(0x691B13A4)
+I (.\Control\pid.h)(0x692844A0)
 I (.\Hardware\Encoder.h)(0x681CC5BA)
 I (.\Hardware\sensor.h)(0x681B5F6D)
 I (.\System\sys.h)(0x5F5C5474)
 I (.\Control\error.h)(0x68314ABA)
 I (.\Hardware\key.h)(0x681A316D)
-I (.\Control\menu.h)(0x69273858)
-I (.\Control\element.h)(0x6924736A)
+I (.\Control\menu.h)(0x692844A0)
+I (.\Control\element.h)(0x692844A0)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x588B8344)
 I (.\Hardware\Serial.h)(0x62D3EBED)
 F (.\Control\error.h)(0x68314ABA)()
-F (.\Control\pid.c)(0x692812FF)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\pid.o --omf_browse .\objects\pid.crf --depend .\objects\pid.d)
+F (.\Control\pid.c)(0x69290E6C)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\pid.o --omf_browse .\objects\pid.crf --depend .\objects\pid.d)
 I (.\System\myfile.h)(0x691AF04E)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -1265,19 +1265,19 @@ I (.\Hardware\OLED_Data.h)(0x6714E987)
 I (.\Hardware\Motor.h)(0x6819F7E3)
 I (.\Hardware\PWM.h)(0x680F9D5A)
 I (.\System\Timer.h)(0x67BF2CFD)
-I (.\Control\pid.h)(0x691B13A4)
+I (.\Control\pid.h)(0x692844A0)
 I (.\Hardware\Encoder.h)(0x681CC5BA)
 I (.\Hardware\sensor.h)(0x681B5F6D)
 I (.\System\sys.h)(0x5F5C5474)
 I (.\Control\error.h)(0x68314ABA)
 I (.\Hardware\key.h)(0x681A316D)
-I (.\Control\menu.h)(0x69273858)
-I (.\Control\element.h)(0x6924736A)
+I (.\Control\menu.h)(0x692844A0)
+I (.\Control\element.h)(0x692844A0)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x588B8344)
 I (.\Hardware\Serial.h)(0x62D3EBED)
-F (.\Control\pid.h)(0x691B13A4)()
-F (.\Control\menu.c)(0x6927468A)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\menu.o --omf_browse .\objects\menu.crf --depend .\objects\menu.d)
+F (.\Control\pid.h)(0x692844A0)()
+F (.\Control\menu.c)(0x692844A0)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\menu.o --omf_browse .\objects\menu.crf --depend .\objects\menu.d)
 I (.\System\myfile.h)(0x691AF04E)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -1313,20 +1313,20 @@ I (.\Hardware\OLED_Data.h)(0x6714E987)
 I (.\Hardware\Motor.h)(0x6819F7E3)
 I (.\Hardware\PWM.h)(0x680F9D5A)
 I (.\System\Timer.h)(0x67BF2CFD)
-I (.\Control\pid.h)(0x691B13A4)
+I (.\Control\pid.h)(0x692844A0)
 I (.\Hardware\Encoder.h)(0x681CC5BA)
 I (.\Hardware\sensor.h)(0x681B5F6D)
 I (.\System\sys.h)(0x5F5C5474)
 I (.\Control\error.h)(0x68314ABA)
 I (.\Hardware\key.h)(0x681A316D)
-I (.\Control\menu.h)(0x69273858)
-I (.\Control\element.h)(0x6924736A)
+I (.\Control\menu.h)(0x692844A0)
+I (.\Control\element.h)(0x692844A0)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x588B8344)
 I (.\Hardware\Serial.h)(0x62D3EBED)
-I (Control\store.h)(0x69273D02)
-F (.\Control\menu.h)(0x69273858)()
-F (.\Control\element.c)(0x6927DD1E)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\element.o --omf_browse .\objects\element.crf --depend .\objects\element.d)
+I (Control\Store.h)(0x692844A0)
+F (.\Control\menu.h)(0x692844A0)()
+F (.\Control\element.c)(0x69290639)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\element.o --omf_browse .\objects\element.crf --depend .\objects\element.d)
 I (.\System\myfile.h)(0x691AF04E)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
@@ -1362,19 +1362,19 @@ I (.\Hardware\OLED_Data.h)(0x6714E987)
 I (.\Hardware\Motor.h)(0x6819F7E3)
 I (.\Hardware\PWM.h)(0x680F9D5A)
 I (.\System\Timer.h)(0x67BF2CFD)
-I (.\Control\pid.h)(0x691B13A4)
+I (.\Control\pid.h)(0x692844A0)
 I (.\Hardware\Encoder.h)(0x681CC5BA)
 I (.\Hardware\sensor.h)(0x681B5F6D)
 I (.\System\sys.h)(0x5F5C5474)
 I (.\Control\error.h)(0x68314ABA)
 I (.\Hardware\key.h)(0x681A316D)
-I (.\Control\menu.h)(0x69273858)
-I (.\Control\element.h)(0x6924736A)
+I (.\Control\menu.h)(0x692844A0)
+I (.\Control\element.h)(0x692844A0)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x588B8344)
 I (.\Hardware\Serial.h)(0x62D3EBED)
-F (.\Control\element.h)(0x6924736A)()
-F (.\Control\store.c)(0x6927426E)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\store.o --omf_browse .\objects\store.crf --depend .\objects\store.d)
+F (.\Control\element.h)(0x692844A0)()
+F (.\Control\store.c)(0x692844A0)(--c99 -c --cpu Cortex-M3 -g -O0 --apcs=interwork --split_sections -I .\Start -I .\Library -I .\User -I .\System -I .\Hardware -I .\Control --no-multibyte-chars-I.\RTE\_Target_1-I"D:\BaiduNetdiskDownload\Keil5 MDK\Keil\STM32F1xx_DFP\2.2.0\Device\Include"-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER-o .\objects\store.o --omf_browse .\objects\store.crf --depend .\objects\store.d)
 I (.\Start\stm32f10x.h)(0x4D783CB4)
 I (.\Start\core_cm3.h)(0x4D523B58)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588B8344)
@@ -1410,16 +1410,16 @@ I (.\Hardware\OLED_Data.h)(0x6714E987)
 I (.\Hardware\Motor.h)(0x6819F7E3)
 I (.\Hardware\PWM.h)(0x680F9D5A)
 I (.\System\Timer.h)(0x67BF2CFD)
-I (.\Control\pid.h)(0x691B13A4)
+I (.\Control\pid.h)(0x692844A0)
 I (.\Hardware\Encoder.h)(0x681CC5BA)
 I (.\Hardware\sensor.h)(0x681B5F6D)
 I (.\System\sys.h)(0x5F5C5474)
 I (.\Control\error.h)(0x68314ABA)
 I (.\Hardware\key.h)(0x681A316D)
-I (.\Control\menu.h)(0x69273858)
-I (.\Control\element.h)(0x6924736A)
+I (.\Control\menu.h)(0x692844A0)
+I (.\Control\element.h)(0x692844A0)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x588B8344)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x588B8344)
 I (.\Hardware\Serial.h)(0x62D3EBED)
-I (Control\Store.h)(0x69273D02)
-F (.\Control\store.h)(0x69273D02)()
+I (Control\Store.h)(0x692844A0)
+F (.\Control\store.h)(0x692844A0)()

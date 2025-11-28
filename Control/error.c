@@ -17,22 +17,22 @@ int Error_Calcaulate()
     // 1. 最危急情况：最外侧 (L2 或 R2) 检测到黑线 (0)
     if (L2 == 0) 
     {
-        final_error = -90; // 极度偏左，给最大负误差 (原-7 * 10)
+        final_error = -80; // 极度偏左，给最大负误差 (原-7 * 10)
         // 甚至可以给更狠一点，比如 -80，强制反转
     }
     else if (R2 == 0)
     {
-        final_error = 90;  // 极度偏右，给最大正误差
+        final_error = 80;  // 极度偏右，给最大正误差
     }
     
     // 2. 次危急情况：次外侧 (L1 或 R1) 检测到黑线
     else if (L1 == 0)
     {
-        final_error = -15; // 稍微偏左 (原-2 * 10)
+        final_error = -12; // 稍微偏左
     }
     else if (R1 == 0)
     {
-        final_error = 15;  // 稍微偏右
+        final_error = 12;  // 稍微偏右
     }
     
     // 3. 正常情况：中间 (M) 检测到黑线
