@@ -10,7 +10,7 @@ uint8_t Start_Flag = 0;
 
 /************************PID调节区***************************/
 int Basic_Speed=0;    
-float Turn_factor=2.5; //转向系数
+float Turn_factor=2.0; //转向系数
 int Left_Speed, Right_Speed=0;
 
 // 5V 供电专用强力参数
@@ -54,8 +54,8 @@ void Control()
     // === 修改死区补偿：单独增强右轮 ===
     
     // 左轮：保持 2500 (如果左轮正常)
-    if (Speed_Out_L > 0) Speed_Out_L += 2500;
-    else if (Speed_Out_L < 0) Speed_Out_L -= 2500;
+    if (Speed_Out_L > 0) Speed_Out_L += 3500;
+    else if (Speed_Out_L < 0) Speed_Out_L -= 3500;
     
     // 右轮：动力不足，增加到 3500 (甚至 4000，直到它能跟上左轮)
     if (Speed_Out_R > 0) Speed_Out_R += 3500; // <-- 改这里
@@ -63,8 +63,8 @@ void Control()
 
    
     // 输出限幅 (现在只限制正向最大值即可，因为负数已经被清零了)
-    int Target_L = Min_Max(Speed_Out_L, -6000, 6000); // 下限改为 0
-    int Target_R = Min_Max(Speed_Out_R, -6000, 6000); // 下限改为 0
+    int Target_L = Min_Max(Speed_Out_L, -4000, 7199); // 下限改为 0
+    int Target_R = Min_Max(Speed_Out_R, -4000, 7199); // 下限改为 0
     
     // === 6. 5V 供电核心补丁：软启动 (防止重启) ===
     int Step =800; // 步长越小起步越稳，不容易拉崩电压
@@ -144,32 +144,54 @@ int PID_Control(int NowPoint, int SetPoint, int *TURN_PID)
 }
 
 /************************差速计算***************************/
-// pid.c
-
 void Different_Speed() 
 { 
     float k;  
     
-    //if (Place_Out > 1500) Place_Out = 1500; // 放大到 1500 或更多
-    //if (Place_Out < -1500) Place_Out = -1500;
-
-    // === 逻辑互换修正 ===
+    // 计算 k 值
+    float abs_k = (Place_Out > 0 ? Place_Out : -Place_Out) * 0.01;
     
-    if(Place_Out >= 0) 
+    // 限制 k 的上限 (比如限制在 8.0)
+    if (abs_k > 8.0) abs_k = 8.0; 
+    
+    k = abs_k;
+
+    // ★ 关键参数调整 ★
+    // 内侧轮系数：调小！让它减速变慢，不容易进入负数区域
+    float Inner_Factor = 0.6; 
+
+    // 外侧轮系数：调大！主要靠外轮加速来推头
+    float Outer_Factor = 4.0;
+
+    // ★ 新增：最大反转限制 (Anti-Spin Limit) ★
+    // 限制内侧轮最慢只能转到基础速度的 -30%
+    // 比如基础速度 80，最慢只能是 -24。这样就不会“猛拽”车头
+    float Min_Scale = -0.3f; 
+
+    if (Place_Out >= 0) // 车偏左
     {
-        k = Place_Out * 0.01; 
-        // 原来是: 左加右减 (右转)
-        // 现在改成: 左减右加 (左转) -> 对应 sensor_err < 0 (左边有线) 的情况
-        // 注意：这取决于 error.c 算出的正负，既然之前反了，这里换一下就行
-        Left_Speed = Basic_Speed * (1 - k);               // 左轮减速
-        Right_Speed = Basic_Speed * (1 + k * Turn_factor);// 右轮加速
+        // === 左轮(内侧)处理 ===
+        float left_scale = 1.0f - k * Inner_Factor;
+        
+        // 强制限制：如果反转太狠，就锁死在 -0.3
+        if (left_scale < Min_Scale) left_scale = Min_Scale;
+        
+        Left_Speed = Basic_Speed * left_scale;
+
+        // === 右轮(外侧)处理 ===
+        Right_Speed = Basic_Speed * (1.0f + k * Outer_Factor);
     } 
-    else 
+    else // 车偏右
     { 
-        k = -Place_Out * 0.01; 
-        // 原来是: 左减右加 (左转)
-        // 现在改成: 左加右减 (右转)
-        Left_Speed = Basic_Speed * (1 + k * Turn_factor); // 左轮加速
-        Right_Speed = Basic_Speed * (1 - k);              // 右轮减速
+        // === 左轮(外侧)处理 ===
+        Left_Speed = Basic_Speed * (1.0f + k * Outer_Factor); 
+
+        // === 右轮(内侧)处理 ===
+        float right_scale = 1.0f - k * Inner_Factor;
+        
+        // 强制限制
+        if (right_scale < Min_Scale) right_scale = Min_Scale;
+        
+        Right_Speed = Basic_Speed * right_scale;
     } 
 }

@@ -12,7 +12,7 @@ uint8_t K=0;
 
 // [0]:弯道/基础速度, [1]:停车, [2]:直道冲刺速度
 // 建议: 80, 0, 120 (差值大一点效果才明显)
-int Speed_Choice[3]={50,0,80}; 
+int Speed_Choice[3]={80,0,120}; 
 
 // 直道判断计数器
 float Straight_Distance = 0; 
@@ -143,7 +143,7 @@ void Element_Noline()
         // 修正：确认全白
         if(L2==1 && L1==1 && M==1 && R1==1 && R2==1)
         {
-            if(Location > 19)
+            if(Location > 25)
             {
                 Element_Flag=2;
                 Place_Enable=0;							
@@ -164,8 +164,8 @@ void Element_Noline()
 	{
 		Noline_Flag=3;
 		PWM_Enable=0;
-		Motor_SetPWM_L(6000);
-		Motor_SetPWM_R(6000);  	
+		Motor_SetPWM_L(7199);
+		Motor_SetPWM_R(7199);  	
 	}	
 	// === 修改为：自动复位 ===
 	if(Noline_Flag==3 && Location>=50 && (L2==0||L1==0||M==0||R1==0||R2==0))
